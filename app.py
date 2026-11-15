@@ -266,15 +266,22 @@ elif menu == "Gestão de Alunos":
     if len(lista_alunos) > 0:
         for idx, aluno in enumerate(lista_alunos):
             col1, col2 = st.columns([4, 1])
-            col1.write(f"- {aluno}")
             
-            # Botão de remover (inativar) aluno
-            if col2.button("🗑️ Remover", key=f"del_{aluno}"):
-                linha_aluno_idx = rotulos.index(aluno)
-                df_atualizado = df_diario.drop(linha_aluno_idx).reset_index(drop=True)
+            # Trata caso exista alguma linha em branco na planilha sem querer
+            nome_exibicao = aluno if str(aluno).strip() != "" else "(Linha em branco)"
+            col1.write(f"- {nome_exibicao}")
+            
+            # Adicionamos o 'idx' na key para garantir que nenhum botão seja igual
+            if col2.button("🗑️ Remover", key=f"del_aluno_{idx}"):
+                
+                # Encontra a linha exata matematicamente (ignora homônimos)
+                linha_exata = idx_oferta + 1 + idx
+                
+                # Remove a linha e atualiza
+                df_atualizado = df_diario.drop(linha_exata).reset_index(drop=True)
                 aba_diario.clear()
                 aba_diario.update(df_atualizado.values.tolist())
-                st.success(f"Aluno {aluno} removido com sucesso!")
+                st.success("Removido com sucesso!")
                 st.rerun()
     else:
         st.write("Nenhum aluno cadastrado no diário.")
