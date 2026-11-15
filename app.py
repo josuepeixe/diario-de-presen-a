@@ -15,7 +15,7 @@ st.set_page_config(page_title="Gestão - Escola Bíblica", page_icon="📖", lay
 # 2. CONEXÃO COM GOOGLE SHEETS
 # ==========================================
 # Substitua pela ID real da sua planilha
-ID_DA_PLANILHA = "COLE_O_ID_DA_SUA_PLANILHA_AQUI" 
+ID_DA_PLANILHA = "14l3xKPEqdqbLIpoPt5uH3Ua2Eiuh7_I19A4FEEbICyY" 
 
 @st.cache_resource
 def conectar_google_sheets():
